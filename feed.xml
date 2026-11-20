@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Zurich Financial Services News</title>
+    <link>http://localhost/feed.xml</link>
+    <description>Zurich-focused banks, insurers and financial infrastructure, filtered from Swiss newspaper RSS feeds.</description>
+    <language>de-ch</language>
+    <generator>zurich-finance-rss/0.1</generator>
+    <ttl>60</ttl>
+    <item>
+      <title>Nach 15 Jahren in norwegischem Besitz: UBS-Fonds kaufen Uetlihof</title>
+      <link>https://www.20min.ch/story/fuer-850-millionen-franken-nach-15-jahren-in-norwegischem-besitz-ubs-fonds-kaufen-uetlihof-103670565</link>
+      <description>Im Januar wechselt der grösste Bürokomplex der Schweiz den Besitzer: Der norwegische Staatsfonds verkauft den Zürcher Uetlihof, der rund 8500 Arbeitsplätze bietet. Künftig werden mehrere Immobilienfonds der UBS die Eigentümer sein.</description>
+      <pubDate>Fri, 20 Nov 2026 08:58:49 GMT</pubDate>
+      <guid isPermaLink="true">https://www.20min.ch/story/fuer-850-millionen-franken-nach-15-jahren-in-norwegischem-besitz-ubs-fonds-kaufen-uetlihof-103670565</guid>
+      <source url="https://partner-feeds.20min.ch/rss/20minuten/wirtschaft">20 Minuten Wirtschaft</source>
+    </item>
+    <item>
+      <title>Vier UBS-Fonds kaufen den Üetlihof – die Grossbank hat nun einen grossen Anreiz, mit ihren Mitarbeitern auszuziehen</title>
+      <link>https://www.nzz.ch/wirtschaft/ubs-fondsgesellschaften-kaufen-ueetlihof-in-zuerich-ld.10069703</link>
+      <description>Der norwegische Staatsfonds hat den Bürokomplex in Zürich verkauft. Das Areal, auf dem zurzeit noch mehrere tausend Mitarbeiter der Grossbank beschäftigt sind, ist vor allem als Bauland für Wohnungen attraktiv.</description>
+      <pubDate>Fri, 20 Nov 2026 06:57:14 GMT</pubDate>
+      <guid isPermaLink="true">https://www.nzz.ch/wirtschaft/ubs-fondsgesellschaften-kaufen-ueetlihof-in-zuerich-ld.10069703</guid>
+      <source url="https://www.nzz.ch/wirtschaft.rss">NZZ Wirtschaft</source>
+    </item>
+    <item>
+      <title>Anthropic und Nvidia dominieren zwar die Schlagzeilen. Die höheren Kursgewinne aber gibt es jetzt an der Schweizer Börse</title>
+      <link>https://www.nzz.ch/wirtschaft/anthropic-und-nvidia-dominieren-zwar-die-schlagzeilen-die-hoeheren-kursgewinne-aber-gibt-es-jetzt-an-der-schweizer-boerse-ld.10067514</link>
+      <description>Dem KI-Boom geht die Luft aus. Stattdessen kaufen die Anleger solide Schweizer Aktien. Der Swiss-Market-Index hebt ab und lässt die globalen Indizes hinter sich.</description>
+      <pubDate>Fri, 20 Nov 2026 04:30:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.nzz.ch/wirtschaft/anthropic-und-nvidia-dominieren-zwar-die-schlagzeilen-die-hoeheren-kursgewinne-aber-gibt-es-jetzt-an-der-schweizer-boerse-ld.10067514</guid>
+      <source url="https://www.nzz.ch/wirtschaft.rss">NZZ Wirtschaft</source>
+    </item>
+    <item>
+      <title>Riesiges Bürogebäude in Zürich: UBS-Fonds kaufen den Üetlihof für 850 Millionen Franken</title>
+      <link>https://www.tagesanzeiger.ch/ueetlihof-zuerich-ubs-fonds-kaufen-fuer-850-millionen-franken-336872231113</link>
+      <description>Mehrere Immobilienfonds der UBS wollen den Kauf im Januar 2027 abschliessen. Sie übernehmen den Bürokomplex vom norwegischen Staatsfonds samt den bestehenden Mietverträgen.</description>
+      <pubDate>Thu, 19 Nov 2026 18:54:58 GMT</pubDate>
+      <guid isPermaLink="true">https://www.tagesanzeiger.ch/ueetlihof-zuerich-ubs-fonds-kaufen-fuer-850-millionen-franken-336872231113</guid>
+      <source url="https://www.tagesanzeiger.ch/wirtschaft/rss.html">Tages-Anzeiger Wirtschaft</source>
+    </item>
+    <item>
+      <title>Die UBS lehnt wesentliche Teile des dritten Pakets der Grossbankenregulierung ab und fordert substanzielle Änderungen</title>
+      <link>https://www.nzz.ch/wirtschaft/die-ubs-lehnt-wesentliche-teile-des-dritten-pakets-der-grossbankenregulierung-ab-und-fordert-substanzielle-aenderungen-ld.10068757</link>
+      <description>Die Vorschläge des Bundesrates für die Reform des Gesetzes zur Bankenstabilität stossen auf harsche Kritik. Der UBS fehlt die Verhältnismässigkeit, der Bankenverband hält sie für unausgewogen.</description>
+      <pubDate>Thu, 19 Nov 2026 18:43:51 GMT</pubDate>
+      <guid isPermaLink="true">https://www.nzz.ch/wirtschaft/die-ubs-lehnt-wesentliche-teile-des-dritten-pakets-der-grossbankenregulierung-ab-und-fordert-substanzielle-aenderungen-ld.10068757</guid>
+      <source url="https://www.nzz.ch/wirtschaft.rss">NZZ Wirtschaft</source>
+    </item>
+    <item>
+      <title>Mietprognose für die Schweiz: UBS erwartet für 2028 rund 5 Prozent höhere Mieten</title>
+      <link>https://www.tagesanzeiger.ch/mietzins-ubs-erwartet-2028-erhoehung-um-rund-5-prozent-939247376948</link>
+      <description>Laut der Bank könnten Vermieter neben einem höheren Referenzzins auch allgemeine Kostensteigerungen weitergeben.</description>
+      <pubDate>Thu, 19 Nov 2026 11:27:26 GMT</pubDate>
+      <guid isPermaLink="true">https://www.tagesanzeiger.ch/mietzins-ubs-erwartet-2028-erhoehung-um-rund-5-prozent-939247376948</guid>
+      <source url="https://www.tagesanzeiger.ch/wirtschaft/rss.html">Tages-Anzeiger Wirtschaft</source>
+    </item>
+    <item>
+      <title>Die Vontobels und Zürich: Geschichte einer Entfremdung</title>
+      <link>https://www.nzz.ch/wirtschaft/die-vontobels-und-zuerich-geschichte-einer-entfremdung-ld.10058527</link>
+      <description>Die Bank Vontobel gehört zu Zürich wie der Paradeplatz. Doch in der vierten Generation hat sich das Verhältnis der Familie zur Stadt abgekühlt. Dermassen stark, dass diese die Bank ziehen lässt.</description>
+      <pubDate>Thu, 19 Nov 2026 04:30:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.nzz.ch/wirtschaft/die-vontobels-und-zuerich-geschichte-einer-entfremdung-ld.10058527</guid>
+      <source url="https://www.nzz.ch/wirtschaft.rss">NZZ Wirtschaft</source>
+    </item>
+    <item>
+      <title>Zinswende naht: So stark steigen die Mieten und Hypothekarzinsen</title>
+      <link>https://www.20min.ch/story/snb-leitzins-ubs-erwartet-2027-zwei-erhoehungen-hypotheken-werden-teurer-103663203</link>
+      <description>Die Schweizerische Nationalbank könnte 2027 die Zinsen anheben. UBS-Experte Fabian Waltert erklärt, wie Hypotheken und Mieten für die Menschen in der Schweiz teurer werden.</description>
+      <pubDate>Wed, 18 Nov 2026 07:39:13 GMT</pubDate>
+      <guid isPermaLink="true">https://www.20min.ch/story/snb-leitzins-ubs-erwartet-2027-zwei-erhoehungen-hypotheken-werden-teurer-103663203</guid>
+      <source url="https://partner-feeds.20min.ch/rss/20minuten/wirtschaft">20 Minuten Wirtschaft</source>
+    </item>
+    <item>
+      <title>UBS gibt im Streit um strengere Kapitalvorgaben offenbar nach</title>
+      <link>https://www.20min.ch/story/ubs-kapitalregeln-grossbank-gibt-widerstand-offenbar-nach-zwei-jahren-auf-103669278</link>
+      <description>Die UBS dürfte im Streit um schärfere Kapitalregeln einlenken. Im Februar will die Grossbank ihre Optionen bis hin zu einem Wegzug prüfen.</description>
+      <pubDate>Tue, 17 Nov 2026 17:39:02 GMT</pubDate>
+      <guid isPermaLink="true">https://www.20min.ch/story/ubs-kapitalregeln-grossbank-gibt-widerstand-offenbar-nach-zwei-jahren-auf-103669278</guid>
+      <source url="https://partner-feeds.20min.ch/rss/20minuten/wirtschaft">20 Minuten Wirtschaft</source>
+    </item>
+    <item>
+      <title>INTERVIEW - «Das ist ein völlig abgedrehtes, gefährliches Weltbild»: Ein CEO-Berater und Ethiker rechnet mit den Tech-Baronen ab</title>
+      <link>https://www.nzz.ch/wirtschaft/das-ist-ein-voellig-abgedrehtes-gefaehrliches-weltbild-ein-ceo-berater-und-ethiker-rechnet-mit-den-tech-baronen-ab-ld.10054351</link>
+      <description>Der renommierte Wirtschaftsethiker Guido Palazzo forscht zu toxischen Unternehmenskulturen – und zieht Parallelen zwischen dem KI-Hype und den Skandalen bei der Credit Suisse und Volkswagen.</description>
+      <pubDate>Sat, 07 Nov 2026 04:30:00 GMT</pubDate>
+      <guid isPermaLink="true">https://www.nzz.ch/wirtschaft/das-ist-ein-voellig-abgedrehtes-gefaehrliches-weltbild-ein-ceo-berater-und-ethiker-rechnet-mit-den-tech-baronen-ab-ld.10054351</guid>
+      <source url="https://www.nzz.ch/wirtschaft.rss">NZZ Wirtschaft</source>
+    </item>
+    <item>
+      <title>Direkt am See mit riesiger Dachterrasse: So sieht der jüngste Wurf der Swiss Re aus – Hauptmieter ist der Facebook-Konzern Meta</title>
+      <link>https://www.nzz.ch/zuerich/swiss-re-praesentiert-neues-buerogebaeude-am-see-meta-als-hauptmieter-ld.10041462</link>
+      <description>Der Rückversicherer wollte das Gebäude zuerst für sich selbst nutzen. Doch dann kam die Pandemie und mit ihr der Trend zum Home-Office.</description>
+      <pubDate>Mon, 26 Oct 2026 15:58:17 GMT</pubDate>
+      <guid isPermaLink="true">https://www.nzz.ch/zuerich/swiss-re-praesentiert-neues-buerogebaeude-am-see-meta-als-hauptmieter-ld.10041462</guid>
+      <source url="https://www.nzz.ch/zuerich.rss">NZZ Zürich</source>
+    </item>
+  </channel>
+</rss>

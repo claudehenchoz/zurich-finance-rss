@@ -1,0 +1,13 @@
+[project]
+name = "zurich-finance-rss"
+version = "0.1.0"
+description = "Filters Swiss newspaper RSS feeds down to Zurich financial-services coverage and republishes them as one RSS feed."
+requires-python = ">=3.12"
+dependencies = ["feedparser>=6.0,<7"]
+
+[dependency-groups]
+dev = ["pytest>=8,<10"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

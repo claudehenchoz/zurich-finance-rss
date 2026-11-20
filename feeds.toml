@@ -1,0 +1,48 @@
+title = "Zurich Financial Services News"
+description = "Zurich-focused banks, insurers and financial infrastructure, filtered from Swiss newspaper RSS feeds."
+link = "http://localhost/feed.xml"
+language = "de-ch"
+output = "feed.xml"
+max_items = 100
+
+# `patterns` must stay above the [[sources]] tables: TOML would otherwise treat
+# it as a key of the last source table.
+patterns = [
+  '\bUBS\b',
+  '\bCredit[ -]Suisse\b',
+  '\bJulius[ -]B(?:ä|ae)r\b',
+  '\bZ(?:ür|uer)cher[ -]Kantonalbank\b|\bZKB\b',
+  '\bVontobel\b',
+  '\bZurich[ -](?:Insurance|Versicherung)(?:[ -]Group)?\b',
+  '\bSwiss[ -]Re\b',
+  '\bSwiss[ -]Life\b',
+  '\bSIX[ -](?:Group|Swiss[ -]Exchange)\b|\bSchweizer[ -]Börse\b',
+  '\bEFG[ -]International\b',
+  '\bLeonteq\b',
+  '\bAvaloq\b',
+  '\bMigros[ -]Bank\b',
+  '\bBellevue[ -]Group\b|\bBank[ -]am[ -]Bellevue\b',
+  '\bAXA[ -](?:Winterthur|Schweiz)\b',
+  '\bSchweizerische[ -]Nationalbank\b|\bSwiss[ -]National[ -]Bank\b|\bSNB\b',
+  '\bFinanzplatz[ -]Z(?:ür|uer)ich\b|\bParadeplatz\b',
+]
+
+[[sources]]
+name = "NZZ Wirtschaft"
+url = "https://www.nzz.ch/wirtschaft.rss"
+
+[[sources]]
+name = "NZZ Finanzen"
+url = "https://www.nzz.ch/finanzen.rss"
+
+[[sources]]
+name = "NZZ Zürich"
+url = "https://www.nzz.ch/zuerich.rss"
+
+[[sources]]
+name = "Tages-Anzeiger Wirtschaft"
+url = "https://www.tagesanzeiger.ch/wirtschaft/rss.html"
+
+[[sources]]
+name = "20 Minuten Wirtschaft"
+url = "https://partner-feeds.20min.ch/rss/20minuten/wirtschaft"

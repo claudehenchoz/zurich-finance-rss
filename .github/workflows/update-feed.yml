@@ -1,0 +1,46 @@
+name: Update RSS feed
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: zurich-finance-rss-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.13.9"
+          enable-cache: true
+
+      - run: uv sync --frozen
+
+      - run: uv run --frozen pytest
+
+      - run: uv run --frozen python aggregator.py
+        env:
+          FEED_LINK: https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/feed.xml
+
+      - name: Commit regenerated feed
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add feed.xml
+          if git diff --cached --quiet; then
+            echo "No feed changes"
+            exit 0
+          fi
+          git commit -m "Update filtered RSS feed"
+          git push
