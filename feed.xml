@@ -2,7 +2,7 @@
 <rss xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
   <channel>
     <title>Zurich Financial Services News</title>
-    <link>http://localhost/feed.xml</link>
+    <link>https://raw.githubusercontent.com/claudehenchoz/zurich-finance-rss/main/feed.xml</link>
     <description>Zurich-focused banks, insurers and financial infrastructure, filtered from Swiss newspaper RSS feeds.</description>
     <language>de-ch</language>
     <generator>zurich-finance-rss/0.1</generator>
