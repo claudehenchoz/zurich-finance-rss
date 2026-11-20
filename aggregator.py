@@ -25,6 +25,9 @@ import feedparser
 
 USER_AGENT = "zurich-finance-rss/0.1 (+https://github.com/)"
 FETCH_TIMEOUT = 30
+MEDIA_NS = "http://search.yahoo.com/mrss/"
+
+ET.register_namespace("media", MEDIA_NS)
 
 
 @dataclass(frozen=True)
@@ -49,6 +52,13 @@ class Config:
 
 
 @dataclass(frozen=True)
+class Image:
+    url: str
+    width: int | None = None
+    height: int | None = None
+
+
+@dataclass(frozen=True)
 class Article:
     title: str
     link: str
@@ -56,6 +66,7 @@ class Article:
     published: datetime | None
     source: str
     source_url: str
+    image: Image | None = None
 
 
 def _require_str(raw: dict, key: str, where: Path) -> str:
@@ -186,6 +197,52 @@ def _is_web_link(link: str) -> bool:
     return parts.scheme.lower() in ("http", "https") and bool(parts.hostname)
 
 
+def _dimension(value: object) -> int | None:
+    try:
+        number = int(str(value).strip())
+    except (TypeError, ValueError):
+        return None
+    return number if number > 0 else None
+
+
+def _media_url(media: dict, *keys: str) -> str | None:
+    for key in keys:
+        value = media.get(key)
+        if isinstance(value, str) and _is_web_link(value.strip()):
+            return value.strip()
+    return None
+
+
+def _entry_image(entry: dict) -> Image | None:
+    """First usable publisher image: media:thumbnail, image media:content, image enclosure."""
+
+    for media in entry.get("media_thumbnail") or ():
+        if isinstance(media, dict) and (url := _media_url(media, "url")):
+            return Image(
+                url=url,
+                width=_dimension(media.get("width")),
+                height=_dimension(media.get("height")),
+            )
+
+    for media in entry.get("media_content") or ():
+        if not isinstance(media, dict):
+            continue
+        medium = str(media.get("medium") or "").lower()
+        mime = str(media.get("type") or "").lower()
+        if medium == "image" or mime.startswith("image/"):
+            if url := _media_url(media, "url"):
+                return Image(url=url)
+
+    for media in entry.get("enclosures") or ():
+        if not isinstance(media, dict):
+            continue
+        if str(media.get("type") or "").lower().startswith("image/"):
+            if url := _media_url(media, "href", "url"):
+                return Image(url=url)
+
+    return None
+
+
 def aggregate(config: Config, fetcher: Callable[[str], bytes] = fetch_url) -> list[Article]:
     """Fetch every source, keep matching entries, dedupe, sort and cap."""
 
@@ -236,6 +293,7 @@ def aggregate(config: Config, fetcher: Callable[[str], bytes] = fetch_url) -> li
                     published=_entry_timestamp(entry),
                     source=source.name,
                     source_url=source.url,
+                    image=_entry_image(entry),
                 )
             )
 
@@ -277,6 +335,13 @@ def render_feed(articles: Iterable[Article], config: Config) -> bytes:
         guid.text = article.link
         source = ET.SubElement(item, "source", {"url": article.source_url})
         source.text = article.source
+        if article.image is not None:
+            attributes = {"url": article.image.url}
+            if article.image.width is not None:
+                attributes["width"] = str(article.image.width)
+            if article.image.height is not None:
+                attributes["height"] = str(article.image.height)
+            ET.SubElement(item, f"{{{MEDIA_NS}}}thumbnail", attributes)
 
     ET.indent(rss, space="  ")
     body = ET.tostring(rss, encoding="utf-8")

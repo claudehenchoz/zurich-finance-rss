@@ -5,8 +5,8 @@ financial-services companies and the Zurich financial centre, and republishes
 the matches as a single RSS 2.0 feed (`feed.xml`). A scheduled GitHub Actions
 workflow regenerates and commits that file hourly.
 
-Only publishers' feed metadata is used: titles, summaries, links and dates.
-Article bodies and paywalled content are never fetched.
+Only publishers' feed metadata is used: titles, summaries, links, dates and
+thumbnail image URLs. Article bodies and paywalled content are never fetched.
 
 ## Local usage
 
@@ -52,6 +52,9 @@ Behavior:
   previous `feed.xml` is never merged.
 - At most `max_items` (default 100) articles are kept, newest first; undated
   articles come last.
+- A publisher image, when the source entry carries one, is normalized to a
+  single `<media:thumbnail>` element and hotlinked from the publisher's CDN.
+  Images and article pages are never downloaded.
 - Either **all** sources succeed or nothing is written. A fetch or parse
   failure aborts the run with an error naming the source, and the previous
   `feed.xml` is left untouched.

@@ -62,6 +62,8 @@ def rss(items: list[dict[str, str]]) -> bytes:
             parts.append(f"<description>{escape(item['description'])}</description>")
         if item.get("pubDate"):
             parts.append(f"<pubDate>{item['pubDate']}</pubDate>")
+        if item.get("extra"):
+            parts.append(item["extra"])
         parts.append("</item>")
     parts.append("</channel></rss>")
     return "".join(parts).encode("utf-8")
@@ -102,12 +104,23 @@ def test_end_to_end_generation_and_determinism(tmp_path, monkeypatch):
                     "link": "https://News.Example.com/story/1/?utm_source=feed&utm_medium=rss&id=42#top",
                     "description": "The bank lifted guidance.",
                     "pubDate": "Tue, 03 Jun 2025 10:00:00 GMT",
+                    "extra": (
+                        '<media:thumbnail xmlns:media="http://search.yahoo.com/mrss/"'
+                        ' width="200" height="200"'
+                        ' url="https://img-msp-prod.nzz.ch/story/1.jpg?width=200&amp;height=200'
+                        '&amp;auto=webp&amp;quality=80&amp;fit=crop"/>'
+                    ),
                 },
                 {
                     "title": "UBS cuts jobs",
                     "link": "https://news.example.com/story/1?id=42&utm_source=other",
                     "description": "Duplicate of the same story via another channel.",
                     "pubDate": "Tue, 03 Jun 2025 09:00:00 GMT",
+                    "extra": (
+                        '<media:thumbnail xmlns:media="http://search.yahoo.com/mrss/"'
+                        ' width="200" height="200"'
+                        ' url="https://img-msp-prod.nzz.ch/duplicate/dropped.jpg?width=200"/>'
+                    ),
                 },
                 {
                     "title": "Local weather",
@@ -166,7 +179,22 @@ def test_end_to_end_generation_and_determinism(tmp_path, monkeypatch):
     assert other.findtext("source") == "News Two"
     assert other.find("source").get("url") == feed_two
 
+    media = "{http://search.yahoo.com/mrss/}thumbnail"
+    thumbnail = ubs.find(media)
+    assert thumbnail is not None
+    assert thumbnail.get("url") == (
+        "https://img-msp-prod.nzz.ch/story/1.jpg?width=200&height=200"
+        "&auto=webp&quality=80&fit=crop"
+    )
+    assert thumbnail.get("width") == "200"
+    assert thumbnail.get("height") == "200"
+    assert other.find(media) is None
+    assert [len(item.findall(media)) for item in items] == [1, 0]
+
     first_bytes = output.read_bytes()
+    assert b"dropped.jpg" not in first_bytes
+    assert b'xmlns:media="http://search.yahoo.com/mrss/"' in first_bytes
+    assert b"&amp;auto=webp" in first_bytes
     assert channel.find("lastBuildDate") is None
     assert b"lastBuildDate" not in first_bytes
 
@@ -213,6 +241,80 @@ def test_or_semantics_over_title_and_summary(tmp_path, monkeypatch):
     articles = aggregator.aggregate(config)
 
     assert sorted(article.title for article in articles) == ["Markets", "UBS outlook improves"]
+
+
+def test_thumbnail_source_shapes_and_precedence(tmp_path, monkeypatch):
+    feed = "https://publisher.example/rss"
+    media = "{http://search.yahoo.com/mrss/}thumbnail"
+    content_image = (
+        '<media:content xmlns:media="http://search.yahoo.com/mrss/"'
+        ' type="image/jpeg" medium="image" url="https://cdn.unitycms.io/images/content.jpg"/>'
+    )
+    image_enclosure = (
+        '<enclosure type="image/jpeg" url="https://partner-feeds.20min.ch/image.jpg"'
+        ' length="12345"/>'
+    )
+    audio_enclosure = (
+        '<enclosure type="audio/mpeg" url="https://cdn.example/audio.mp3" length="999"/>'
+    )
+    thumbnail = (
+        '<media:thumbnail xmlns:media="http://search.yahoo.com/mrss/"'
+        ' width="300" height="200" url="https://img.example/winner.jpg"/>'
+    )
+
+    def item(title: str, slug: str, extra: str = "") -> dict[str, str]:
+        return {
+            "title": title,
+            "link": f"https://publisher.example/{slug}",
+            "description": "match",
+            "extra": extra,
+        }
+
+    install_feeds(
+        monkeypatch,
+        {
+            feed: rss(
+                [
+                    item("Content match", "content", content_image),
+                    item("Enclosure match", "enclosure", image_enclosure),
+                    item("Audio match", "audio", audio_enclosure),
+                    item("Plain match", "plain"),
+                    item("All match", "all", content_image + image_enclosure + thumbnail),
+                ]
+            )
+        },
+    )
+    output, root = generate(
+        tmp_path,
+        monkeypatch,
+        sources=[("Publisher", feed)],
+        patterns=[r"\bmatch\b"],
+    )
+
+    items = root.findall("./channel/item")
+    assert len(items) == 5
+    by_title = {item.findtext("title"): item for item in items}
+
+    content = by_title["Content match"].find(media)
+    assert content is not None
+    assert content.get("url") == "https://cdn.unitycms.io/images/content.jpg"
+    assert content.get("width") is None and content.get("height") is None
+
+    enclosure = by_title["Enclosure match"].find(media)
+    assert enclosure is not None
+    assert enclosure.get("url") == "https://partner-feeds.20min.ch/image.jpg"
+    assert enclosure.get("width") is None and enclosure.get("height") is None
+
+    winner = by_title["All match"].find(media)
+    assert winner is not None
+    assert winner.get("url") == "https://img.example/winner.jpg"
+    assert winner.get("width") == "300"
+    assert winner.get("height") == "200"
+
+    assert by_title["Audio match"].find(media) is None
+    assert by_title["Plain match"].find(media) is None
+    assert all(item.find("enclosure") is None for item in items)
+    assert b"cdn.example/audio.mp3" not in output.read_bytes()
 
 
 def test_ordering_undated_and_cap(tmp_path, monkeypatch):
@@ -312,6 +414,8 @@ def test_valid_empty_result(tmp_path, monkeypatch):
 
     empty = ET.fromstring(aggregator.render_feed([], aggregator.load_config(tmp_path / "feeds.toml")))
     assert empty.findall("./channel/item") == []
+    assert b"xmlns:media" not in output.read_bytes()
+    assert b"thumbnail" not in output.read_bytes()
 
 
 def test_source_failure_preserves_previous_output(tmp_path, monkeypatch):
